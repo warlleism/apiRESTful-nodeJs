@@ -91,4 +91,4 @@ router.delete('/delete/:email', async (req, res) => {
 })
 
 
-module.exports = router
+module.exports = app => app.use('/auth', router)
