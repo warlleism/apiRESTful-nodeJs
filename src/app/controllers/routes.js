@@ -3,7 +3,7 @@ const router = express.Router();
 const User = require('../models/user');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const authConfig = require('../config/auth.json')
+const authConfig = require('../../config/auth.json')
 
 
 //autenticação
@@ -26,7 +26,7 @@ router.post('/authenticate', async (req, res) => {
 
     user.password = undefined;
 
-    res.send({ user, token: generateToken({ id: user.id }) })
+    res.send({ user, token: generateToken({ id: user._id }) })
 });
 
 //registro
@@ -39,8 +39,8 @@ router.post('/register', async (req, res) => {
         }
         const user = await User.create(req.body);
         user.password = undefined;
-        return res.send({ user, token: generateToken({ id: user.id }) });
-        
+        return res.send({ user, token: generateToken({ id: user._id }) });
+
     } catch (err) {
         return res.status(400).send({ error: 'Registration failed' });
     }
